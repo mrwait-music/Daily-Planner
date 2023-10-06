@@ -7,30 +7,6 @@ var currentDay = $('#currentDay');
 var save = $("saveButton");
 
 
-
-$(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
-});
-
-
-
 function saveInput (event) {
   event.preventDefault()
   var clickedSave = $(this).siblings('textarea').val()
@@ -43,17 +19,16 @@ console.log(localStorage)
 $(function() {
   $('.saveBtn').on('click', saveInput);
   
-  // for (var i = 9; i <= 17; i++){
-  //   var savedInput = localStorage.getItem('tasks-' + i);
-    // if (savedInput) {
-    //   $('#hour-' + i + 'textarea').val(savedInput)
-    // }
-  // }
 })
 
 
 window.onload = function() {
-localStorage.getItem(taskTime, clickedSave)
+$('textarea').each(function () {
+  var id = $(this).attr('id')
+  $(this).val(localStorage.getItem(id));
+
+})
+
 }; 
 
 
@@ -65,4 +40,27 @@ setInterval(displayTime, 1000);
 function displayTime() {
   var timeCurrently = dayjs().format('[It is currently] MMM DD, YYYY [at] hh:mm:ss a');
   currentDay.text(timeCurrently);
+  $('textarea').each(function () {
+    var currentHour = dayjs().format('HH');
+    var taskTime = $(this).attr('id');
+
+
+    if (currentHour == taskTime ) {
+      $(this).parent().addClass('present')
+      $(this).parent().removeClass('past')
+      $(this).parent().removeClass('future')
+    
+    } else if (currentHour < taskTime) {
+      $(this).parent().addClass('future')
+      $(this).parent().removeClass('past')
+      $(this).parent().removeClass('present')
+
+    } else {
+      $(this).parent().addClass('past')
+      $(this).parent().removeClass('present')
+      $(this).parent().removeClass('future')
+    }
+
+  }
+  )
 }
