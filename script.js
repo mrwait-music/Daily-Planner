@@ -1,6 +1,13 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+
+var userInput = $('#hour')
+var currentDay = $('#currentDay');
+var save = $("saveButton");
+
+
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -21,3 +28,41 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+
+
+function saveInput (event) {
+  event.preventDefault()
+  var clickedSave = $(this).siblings('textarea').val()
+  var taskTime = $(this).siblings('textarea').attr('id')
+  
+  localStorage.setItem(taskTime, clickedSave);
+console.log(localStorage)
+};
+
+$(function() {
+  $('.saveBtn').on('click', saveInput);
+  
+  // for (var i = 9; i <= 17; i++){
+  //   var savedInput = localStorage.getItem('tasks-' + i);
+    // if (savedInput) {
+    //   $('#hour-' + i + 'textarea').val(savedInput)
+    // }
+  // }
+})
+
+
+window.onload = function() {
+localStorage.getItem(taskTime, clickedSave)
+}; 
+
+
+
+
+displayTime();
+setInterval(displayTime, 1000);
+
+function displayTime() {
+  var timeCurrently = dayjs().format('[It is currently] MMM DD, YYYY [at] hh:mm:ss a');
+  currentDay.text(timeCurrently);
+}
