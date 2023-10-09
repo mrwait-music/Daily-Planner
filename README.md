@@ -5,7 +5,8 @@ This application will be used for planning out your day by the hour. The app wil
 Insallation should not be necessary for this application.
 ## Usage
 This app can be used to plan out a typical workday schedule. Color coded for displaying event times and returning previously entered tasks are the main features of this application.
-<Screen Recording 2023-10-08 at 2.55.04 PM.mov>
+
+<img src="Work Day Scheduler.gif">
 
 ## Contributing
 Special thanks to Eric Sayer for helping me build this application during our tutoring session.
